@@ -7,3 +7,4 @@ flask-hype
 
 .. image:: https://coveralls.io/repos/bninja/flask-hype/badge.png
    :target: https://coveralls.io/r/bninja/flask-hype
+
