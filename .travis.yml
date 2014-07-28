@@ -9,7 +9,7 @@ install:
   - pip install coveralls
 script:
   - "./extras/example/setup.sh -U postgres"
-  - PYTHONWARNINGS=error py.test test.py --cov=flask_hype --cov-report term-missing
+  - py.test test.py --cov=flask_hype --cov-report term-missing
 services:
   - redis-server
 addons:
