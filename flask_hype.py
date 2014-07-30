@@ -206,6 +206,25 @@ class Id(pilo.fields.String):
         return self.encode(path.primitive())
 
 
+class DecodedId(pilo.Field):
+
+    def __init__(self, resource=None, *args, **kwargs):
+        self.resource = resource
+        super(DecodedId, self).__init__(*args, **kwargs)
+
+    def _parse(self, path):
+        if isinstance(self.resource, basestring):
+            resource = Resource.registry.match_name(self.resource)
+            if resource is None:
+                raise Exception('No resource with name "{0}"'.format(self.resource))
+            self.resource = resource
+        resource_cls = Resource.registry.match_id(path.value, self.resource)
+        if not resource_cls:
+            self.ctx.errors.invalid('does not match resource')
+            return pilo.ERROR
+        return id_field(resource_cls).decode(path.value)
+
+
 # https://wiki.python.org/moin/PythonDecoratorLibrary#Alternate_memoize_as_nested_functions
 def memoize(func):
 
@@ -547,6 +566,15 @@ class Registry(collections.MutableSet):
             raise TypeError('{0} matches no {1}'.format(id, self.resource_cls))
         return id_field(matched_cls).decode(id)
 
+    def id_codecs(self):
+        codecs = []
+        for resource_cls in self:
+            field = id_field(resource_cls, None)
+            if field is None:
+                continue
+            codecs.append(field.codec)
+        return codecs
+
     def match_obj(self, obj, *resource_clses):
         resource_clses = resource_clses or self
         for cls in resource_clses:
@@ -655,6 +683,8 @@ class Binding(object):
     _order = itertools.count(0)
 
     def __init__(self, name=None, polymorphic=False):
+        if not isinstance(name, basestring):
+            raise TypeError('name={0!r} is not a string'.format(name))
         self._order = self._order.next()
         self.name = name
         self.polymorphic = polymorphic
