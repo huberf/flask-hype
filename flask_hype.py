@@ -164,7 +164,11 @@ class Id(pilo.fields.String):
 
         # resource
         if isinstance(self._codec, basestring):
-            resource_cls = Resource.registry.match_name(self._codec)
+            if self.parent is None:
+                raise Exception('{0}.parent is None'.format(self))
+            if self.parent.registry is None:
+                raise Exception('{0}.parent.registry is None'.format(self))
+            resource_cls = self.parent.registry.match_name(self._codec)
             if resource_cls is None:
                 raise Exception(
                     'No resource with name "{0}"'.format(self._codec)
