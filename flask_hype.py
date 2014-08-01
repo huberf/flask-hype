@@ -70,7 +70,7 @@ Used to build a resource layer for your models, like e.g.:
 
 """
 
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 __all__ = [
     'Id',
