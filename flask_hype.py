@@ -687,7 +687,7 @@ class Binding(object):
     _order = itertools.count(0)
 
     def __init__(self, name=None, polymorphic=False):
-        if not isinstance(name, basestring):
+        if name is not None and not isinstance(name, basestring):
             raise TypeError('name={0!r} is not a string'.format(name))
         self._order = self._order.next()
         self.name = name
