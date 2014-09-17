@@ -22,7 +22,7 @@ setuptools.setup(
     platforms='any',
     install_requires=[
         'Flask >=0.10,<0.11',
-        'pilo >=0.3,<0.4',
+        'pilo >=0.4,<0.5',
     ],
     extras_require={
         'test': [
