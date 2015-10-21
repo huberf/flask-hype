@@ -104,8 +104,7 @@ class DBEnum(list):
 
 # cache
 
-#cache_cli = None
-cache_clie = redis.Redis()
+cache_cli = None
 
 
 class CacheStringModel(pilo.Form):
@@ -876,3 +875,5 @@ def on_prisoner_guess(msg):
 
 
 Consumer = MessageModel.consumer
+
+init(config)
