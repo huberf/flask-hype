@@ -411,9 +411,10 @@ class User(DBModel):
         return Stats.get(self.id, create=True)
 
     @classmethod
-    def create(cls, email_address, id=None):
+    def create(cls, email_address, password, id=None):
         obj = cls(
             email_address=email_address,
+	    password=password,
             id=id or cls.generate_id(),
         )
         db_session.add(obj)
