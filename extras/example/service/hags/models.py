@@ -104,7 +104,8 @@ class DBEnum(list):
 
 # cache
 
-cache_cli = None
+#cache_cli = None
+cache_clie = redis.Redis()
 
 
 class CacheStringModel(pilo.Form):
