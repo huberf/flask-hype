@@ -416,7 +416,7 @@ class User(DBModel):
             email_address=email_address,
             id=id or cls.generate_id(),
         )
-	self.add_password(password)
+	cls.add_password(password)
         db_session.add(obj)
         Stats.create(user=obj)
         return obj
