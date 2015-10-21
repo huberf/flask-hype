@@ -13,8 +13,9 @@ class FlaskTestCase(unittest.TestCase):
         credentials = json.dumps(credsplain)
         print self.app.post('/users/', data=credentials, content_type='application/json', follow_redirects=True)
     
+    '''
     def test_authenticate(self):
-
+'''
 
 
 if __name__ == '__main__':
