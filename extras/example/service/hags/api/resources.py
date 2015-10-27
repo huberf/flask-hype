@@ -140,7 +140,7 @@ class User(Resource):
     def create(cls, source):
         form = cls.Create(source)
         obj = models.User.create(
-            email_address=form.email_address, password=form.password,
+            email_address=form.email_address, password=form.password
         )
         models.db_session.commit()
         return User(obj)
